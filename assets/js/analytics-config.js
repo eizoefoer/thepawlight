@@ -1,9 +1,9 @@
 // Public site analytics configuration.
 // Cloudflare Web Analytics site tokens are public browser tokens.
-// Fill cloudflareToken after creating a Web Analytics site for thepawlight.com.
+// Cloudflare Web Analytics token for thepawlight.com.
 window.PAWLIGHT_ANALYTICS = window.PAWLIGHT_ANALYTICS || {
   provider: "cloudflare-web-analytics",
-  cloudflareToken: "",
+  cloudflareToken: "959743b47645483e96d369eb6b75a594",
   sourceParameters: [
     "utm_source",
     "utm_medium",

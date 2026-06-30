@@ -44,6 +44,14 @@ class TrackingSiteTests(unittest.TestCase):
         self.assertRegex(html, r"setTimeout\([^,]+,\s*1[0-9]{3}\)")
         self.assertRegex(html, re.escape(ETSY_LISTING_ID))
 
+    def test_cloudflare_web_analytics_token_is_configured(self) -> None:
+        config = (ROOT / "assets" / "js" / "analytics-config.js").read_text(encoding="utf-8")
+        match = re.search(r'cloudflareToken:\s*"([0-9a-f]{32})"', config)
+        self.assertIsNotNone(match, "Cloudflare Web Analytics public token should be configured")
+        if match is None:
+            return
+        self.assertNotEqual(match.group(1), "")
+
     def test_qr_assets_and_manifest_are_generated(self) -> None:
         manifest = ROOT / "assets" / "qr" / "manifest.json"
         self.assertTrue(manifest.exists(), "QR manifest should be generated for print/social assets")
