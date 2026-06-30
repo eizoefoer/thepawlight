@@ -1,0 +1,43 @@
+name: Live redirect check
+
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: URL to verify
+        required: false
+        default: https://thepawlight.com/
+  schedule:
+    - cron: '17 */6 * * *'
+
+permissions:
+  contents: read
+
+jobs:
+  live-check:
+    name: live-check
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Verify live redirect
+        env:
+          TARGET_URL: ${{ inputs.url || 'https://thepawlight.com/' }}
+        run: |
+          set -euo pipefail
+          for i in $(seq 1 30); do
+            if python scripts/verify_redirect.py --url "$TARGET_URL"; then
+              exit 0
+            fi
+            echo "live check retry $i"
+            sleep 10
+          done
+          python scripts/verify_redirect.py --url "$TARGET_URL"
