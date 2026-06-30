@@ -30,7 +30,7 @@ jobs:
 
       - name: Verify live redirect
         env:
-          TARGET_URL: ${{ inputs.url || 'https://thepawlight.com/' }}
+          TARGET_URL: ${{ inputs.url || 'http://thepawlight.com/' }}
         run: |
           set -euo pipefail
           for i in $(seq 1 30); do
