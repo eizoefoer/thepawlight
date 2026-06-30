@@ -55,6 +55,14 @@ Outputs:
 
 Preferred free/privacy-first provider: Cloudflare Web Analytics.
 
+Adoption path:
+
+1. **Now: Cloudflare Web Analytics** — default tracker for the current redirect site. It is lightweight, free, privacy-first, and enough for top-of-funnel views, referrers, geography, device/browser/OS, Core Web Vitals, and QR/Reddit/Instagram UTM splits.
+2. **Landing page phase: Microsoft Clarity** — add only after the site becomes a fuller landing page where heatmaps, session recordings, scroll/click maps, rage/dead-click signals, or funnel UX diagnosis are useful. Before enabling, configure privacy masking and consent handling carefully.
+3. **Paid ads phase: Google Analytics 4** — add only when running paid ads or needing deeper campaign/funnel attribution, Google Ads integration, custom events, conversion modeling, or remarketing-style analysis.
+
+Etsy remains the sales/conversion source of truth. ThePawLight analytics is the top-of-funnel source attribution layer and outbound-intent signal before visitors leave for Etsy.
+
 Free-tier guardrail:
 
 - Use Cloudflare free/free-tier products only.

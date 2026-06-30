@@ -18,6 +18,8 @@ Last updated: 2026-06-30
   - Instagram: `https://thepawlight.com/?utm_source=instagram&utm_medium=social&utm_campaign=pawlight_launch&utm_content=bio`
 - QR assets are generated into `assets/qr/` by `scripts/generate_qr_assets.py`.
 - Cloudflare Web Analytics public site token is configured in `assets/js/analytics-config.js` after dashboard creation for `thepawlight.com`.
+- Analytics adoption path: Cloudflare Web Analytics stays active now; Microsoft Clarity is a later landing-page UX tool for heatmaps/session recordings and must be added only with masking/consent care; Google Analytics 4 is a later paid-ads/deep-attribution tool, not needed for the current redirect page.
+- Etsy remains the sales/conversion source of truth; ThePawLight analytics tracks top-of-funnel visits, campaign source, and outbound intent before Etsy.
 - Cloudflare guardrail: use free/free-tier Cloudflare only. Do not enable paid plans, Workers paid features, paid Pages add-ons, paid domains, R2 billable storage, Zaraz paid features, or any upgrade without explicit user approval.
 - Billing monitor: Hermes cron job `Cloudflare Free Tier Billing Watchdog` (`d27c9e4b6a04`) runs every 6 hours. It is silent when subscriptions are `free`/price `0`, billing history has no positive charges, and PayGo usage has zero rows/cost; it alerts this chat on any new non-free/cost signal.
 - Current billing check: Cloudflare API shows 1 account/user subscription on rate plan `free` with price `0 USD`, no billing history items, and no PayGo usage rows.
