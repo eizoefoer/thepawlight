@@ -13,6 +13,14 @@ Marketing links:
 - Reddit thread: `https://thepawlight.com/?utm_source=reddit&utm_medium=social&utm_campaign=pawlight_launch&utm_content=thread`
 - Instagram bio: `https://thepawlight.com/?utm_source=instagram&utm_medium=social&utm_campaign=pawlight_launch&utm_content=bio`
 
+Analytics adoption path:
+
+1. **Now: Cloudflare Web Analytics** — keep as the default lightweight, privacy-first top-of-funnel tracker for visits, referrers, geography, device/browser/OS, Core Web Vitals, and UTM splits before redirecting to Etsy.
+2. **Landing page phase: Microsoft Clarity** — add only after ThePawLight has a real landing page with copy/images/FAQs/CTAs and we need heatmaps, click/scroll maps, rage/dead-click signals, or session recordings. Configure masking/consent carefully before enabling.
+3. **Paid ads phase: Google Analytics 4** — add only when running paid ads or needing deeper campaign/funnel attribution, custom conversion events, Google Ads integration, or remarketing-style analysis.
+
+Etsy remains the sales/conversion source of truth; site analytics measure top-of-funnel traffic and outbound intent.
+
 Commands:
 
 ```bash

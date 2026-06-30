@@ -37,5 +37,7 @@ python3 scripts/verify_redirect.py --url http://thepawlight.com/
 - QR assets: `assets/qr/`.
 - Analytics docs: `docs/analytics-and-qr.md`.
 - Preferred analytics: Cloudflare Web Analytics via `assets/js/analytics-config.js`.
+- Analytics adoption path: keep Cloudflare Web Analytics now; add Microsoft Clarity only for a fuller landing page that needs heatmaps/session recordings/UX diagnosis; add Google Analytics 4 only when paid ads or deeper funnel/campaign attribution justify the privacy/setup overhead.
+- Etsy remains the sales/conversion source of truth; this site measures top-of-funnel source attribution and outbound intent.
 - Cloudflare must stay free/free-tier only. Do not enable paid plans, Workers paid features, paid Pages add-ons, domains, R2 billable storage, Zaraz paid features, or any upgrade without explicit user approval.
 - Billing guardrail: Hermes cron job `Cloudflare Free Tier Billing Watchdog` (`d27c9e4b6a04`) checks Cloudflare subscriptions, billing history, and PayGo usage every 6 hours and stays silent unless cost/non-free plan appears.
