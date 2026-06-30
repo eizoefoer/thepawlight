@@ -31,6 +31,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
           RUN_ID: ${{ github.event.workflow_run.id || '' }}
+          HEAD_SHA: ${{ github.event.workflow_run.head_sha || '' }}
           INPUT_PR: ${{ inputs.pr || '' }}
         run: |
           set -euo pipefail
@@ -41,6 +42,10 @@ jobs:
           prs=$(jq -r --arg repo "$REPO" \
             '(.workflow_run.pull_requests // []) | map(select(.head.repo.full_name == $repo) | .number) | join(" ")' \
             "$GITHUB_EVENT_PATH")
+          if [ -z "$prs" ] && [ -n "$HEAD_SHA" ]; then
+            prs=$(gh pr list --repo "$REPO" --state open --json number,headRefOid,isCrossRepository | \
+              jq -r --arg sha "$HEAD_SHA" 'map(select(.headRefOid == $sha and (.isCrossRepository | not)) | .number) | join(" ")')
+          fi
           printf 'prs=%s\n' "$prs" >> "$GITHUB_OUTPUT"
 
       - name: Merge safe green PRs
