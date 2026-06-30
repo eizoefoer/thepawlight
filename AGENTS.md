@@ -27,8 +27,8 @@ python3 scripts/verify_redirect.py --url http://thepawlight.com/
 
 ## Live target
 
-- Custom domain: `http://thepawlight.com/` (`https://thepawlight.com/` pending GitHub Pages certificate)
-- GitHub Pages fallback: `https://eizoefoer.github.io/thepawlight/`
+- Custom domains: `https://thepawlight.com/` and `https://www.thepawlight.com/`
+- Hosting path: Caddy on Oracle VM serving `/srv/thepawlight`; DNS/Caddy/live E2E are tracked in private `eizoefoer/site-infra` at `/home/ubuntu/site-infra`.
 - Etsy target: `https://thepawlightofficial.etsy.com/listing/1375236596`
 
 ## Analytics + QR

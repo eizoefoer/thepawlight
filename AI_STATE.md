@@ -4,9 +4,9 @@ Last updated: 2026-06-30
 
 ## Live goal
 
-- `http://thepawlight.com/` redirects visitors to Etsy listing `1375236596`.
-- `https://thepawlight.com/` is pending GitHub Pages certificate provisioning at cutover time.
-- Redirect method: branded static HTML page + Cloudflare Web Analytics-ready beacon loader + UTM-preserving JavaScript redirect + meta refresh fallback + fallback link.
+- `https://thepawlight.com/` and `https://www.thepawlight.com/` serve the branded redirect page from Caddy on the Oracle VM and redirect visitors to Etsy listing `1375236596`.
+- Redirect method: branded static HTML page + Cloudflare Web Analytics beacon loader + UTM-preserving JavaScript redirect + meta refresh fallback + fallback link.
+- Cross-site hosting/DNS/Caddy/Playwright source of truth: private repo `eizoefoer/site-infra` at `/home/ubuntu/site-infra`.
 
 ## Analytics and attribution
 
@@ -27,17 +27,16 @@ Last updated: 2026-06-30
 
 ## DNS
 
-- DNS source of truth for `thepawlight.com`: GoDaddy.
-- DNS cutover is managed from `/home/ubuntu/pawlight-fulfilment/infra/dns`.
-- Desired GitHub Pages DNS:
-  - Apex A: `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
-  - `www` CNAME: `eizoefoer.github.io`
+- DNS source of truth for `thepawlight.com`: GoDaddy, with managed records tracked in `/home/ubuntu/site-infra/inventory/dns.json`.
+- Current VM-hosted DNS:
+  - Apex A: `192.9.160.136`
+  - `www` CNAME: `@`
+- Caddy serves valid HTTPS for both apex and `www`.
 
 ## Release gates
 
 1. CI green on PR/main.
-2. GitHub Pages build green.
-3. `python3 scripts/verify_redirect.py --url http://thepawlight.com/` passes.
+2. Static redirect tests pass in this repo.
+3. Cross-site IaC/live E2E checks pass in `eizoefoer/site-infra`.
 4. Browser navigation reaches Etsy listing URL or Etsy anti-bot page on listing `1375236596`.
-5. After GitHub Pages certificate provisioning, enforce HTTPS and switch live checks back to `https://thepawlight.com/`.
-6. For attribution changes, verify campaign URLs preserve UTM tags into the Etsy destination.
+5. For attribution changes, verify campaign URLs preserve UTM tags into the Etsy destination.
