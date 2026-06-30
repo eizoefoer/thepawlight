@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Validate redirect files
+        run: |
+          python scripts/verify_redirect.py --file index.html
+          python scripts/verify_redirect.py --file 404.html
+          test "$(cat CNAME)" = "thepawlight.com"
+
+      - name: Live check after main deploy
+        if: github.ref == 'refs/heads/main'
+        run: |
+          python scripts/verify_redirect.py --url https://eizoefoer.github.io/thepawlight/

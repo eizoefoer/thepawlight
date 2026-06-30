@@ -1,0 +1,73 @@
+name: Auto-merge
+
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      pr:
+        description: Pull request number to merge after checking CI
+        required: false
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: read
+
+jobs:
+  auto-merge:
+    name: auto-merge
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'pull_request')
+
+    steps:
+      - name: Resolve candidate PRs
+        id: prs
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          RUN_ID: ${{ github.event.workflow_run.id || '' }}
+          INPUT_PR: ${{ inputs.pr || '' }}
+        run: |
+          set -euo pipefail
+          if [ -n "$INPUT_PR" ]; then
+            printf 'prs=%s\n' "$INPUT_PR" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          prs=$(gh api "repos/$REPO/actions/runs/$RUN_ID/pulls" \
+            --jq 'map(select(.state == "open") | select(.head.repo.full_name == env.REPO) | .number) | join(" ")')
+          printf 'prs=%s\n' "$prs" >> "$GITHUB_OUTPUT"
+
+      - name: Merge safe green PRs
+        if: steps.prs.outputs.prs != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          PRS: ${{ steps.prs.outputs.prs }}
+        run: |
+          set -euo pipefail
+          for pr in $PRS; do
+            state=$(gh pr view "$pr" --repo "$REPO" --json state --jq .state)
+            author=$(gh pr view "$pr" --repo "$REPO" --json author --jq .author.login)
+            is_cross_repo=$(gh pr view "$pr" --repo "$REPO" --json isCrossRepository --jq .isCrossRepository)
+            if [ "$state" != "OPEN" ] || [ "$is_cross_repo" = "true" ]; then
+              continue
+            fi
+            case "$author" in
+              eizoefoer|openclaw-agent|github-actions[bot]) ;;
+              *) echo "Skip #$pr: untrusted author $author"; continue ;;
+            esac
+            head_ref=$(gh pr view "$pr" --repo "$REPO" --json headRefName --jq .headRefName)
+            ci=$(gh run list --repo "$REPO" --workflow CI --branch "$head_ref" --limit 1 \
+              --json status,conclusion --jq '.[0] | .status + ":" + (.conclusion // "")')
+            if [ "$ci" != "completed:success" ]; then
+              echo "Skip #$pr: CI is $ci"
+              continue
+            fi
+            gh pr merge "$pr" --repo "$REPO" --squash --delete-branch \
+              --body "Auto-merged by workflow after CI success."
+          done
