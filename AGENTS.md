@@ -8,7 +8,7 @@ Public GitHub Pages redirect site for `thepawlight.com` -> Etsy listing `1375236
 
 ```bash
 python3 scripts/verify_redirect.py --file index.html
-python3 scripts/verify_redirect.py --url https://thepawlight.com/
+python3 scripts/verify_redirect.py --url http://thepawlight.com/
 ```
 
 ## Rules
@@ -21,6 +21,6 @@ python3 scripts/verify_redirect.py --url https://thepawlight.com/
 
 ## Live target
 
-- Custom domain: `https://thepawlight.com/`
+- Custom domain: `http://thepawlight.com/` (`https://thepawlight.com/` pending GitHub Pages certificate)
 - GitHub Pages fallback: `https://eizoefoer.github.io/thepawlight/`
 - Etsy target: `https://thepawlightofficial.etsy.com/listing/1375236596`

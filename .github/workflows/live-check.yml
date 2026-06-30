@@ -6,7 +6,7 @@ on:
       url:
         description: URL to verify
         required: false
-        default: https://thepawlight.com/
+        default: http://thepawlight.com/
   schedule:
     - cron: '17 */6 * * *'
 
