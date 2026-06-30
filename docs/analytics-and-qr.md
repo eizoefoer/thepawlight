@@ -55,6 +55,13 @@ Outputs:
 
 Preferred free/privacy-first provider: Cloudflare Web Analytics.
 
+Free-tier guardrail:
+
+- Use Cloudflare free/free-tier products only.
+- Do not enable paid plans, Workers paid features, paid Pages add-ons, paid domains, R2 billable storage, Zaraz paid features, or any upgrade without explicit user approval.
+- Hermes cron job `Cloudflare Free Tier Billing Watchdog` (`d27c9e4b6a04`) checks Cloudflare subscriptions, billing history, and PayGo usage every 6 hours and alerts only if a non-free plan or positive cost appears.
+- Current check: 1 account/user subscription on rate plan `free` at `0 USD`; billing history empty; PayGo usage empty.
+
 Cloudflare docs confirm it works without moving DNS to Cloudflare proxy. It uses a JavaScript beacon and can report page views, visits, referrers, country, browser, OS, and device type.
 
 The site is wired for Cloudflare Web Analytics in:
