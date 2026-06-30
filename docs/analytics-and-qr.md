@@ -70,17 +70,13 @@ The site is wired for Cloudflare Web Analytics in:
 - `index.html`
 - `404.html`
 
-Create/read the public site token:
+The public Web Analytics token for `thepawlight.com` is configured in `assets/js/analytics-config.js`. If the site token ever needs to be recreated or rotated, create/read the public site token with:
 
 ```bash
 python3 scripts/configure_cloudflare_web_analytics.py --env-file ~/.hermes/.env --create --write-config
 ```
 
-If Cloudflare returns `HTTP 403 Authentication error`, the token can list analytics but lacks Web Analytics/RUM edit permission. Fix by creating the Web Analytics site in the Cloudflare dashboard or updating the API token permissions, then rerun:
-
-```bash
-python3 scripts/configure_cloudflare_web_analytics.py --env-file ~/.hermes/.env --write-config
-```
+If Cloudflare returns `HTTP 403 Authentication error`, the API token can list analytics but cannot create Web Analytics/RUM sites. Create the Web Analytics site in the Cloudflare dashboard, copy the public snippet/token, update `assets/js/analytics-config.js`, and keep the free-tier guardrail intact.
 
 ## Reading the numbers
 
