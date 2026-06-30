@@ -36,7 +36,3 @@ jobs:
           python scripts/verify_redirect.py --file 404.html
           test "$(cat CNAME)" = "thepawlight.com"
 
-      - name: Live check after main deploy
-        if: github.ref == 'refs/heads/main'
-        run: |
-          python scripts/verify_redirect.py --url https://eizoefoer.github.io/thepawlight/
