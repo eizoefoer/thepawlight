@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verify ThePawLight redirect page points to the Etsy listing."""
+"""Verify ThePawLight tracking redirect page points to the Etsy listing."""
 
 from __future__ import annotations
 
@@ -11,11 +11,12 @@ import urllib.request
 from pathlib import Path
 
 EXPECTED_TARGET = "https://thepawlightofficial.etsy.com/listing/1375236596"
+BRAND_CANONICAL = "https://thepawlight.com/"
 LISTING_ID = "1375236596"
 
 
 def read_url(url: str) -> tuple[int, str, str]:
-    request = urllib.request.Request(url, headers={"User-Agent": "thepawlight-redirect-check/1.0"})
+    request = urllib.request.Request(url, headers={"User-Agent": "thepawlight-redirect-check/1.1"})
     try:
         with urllib.request.urlopen(request, timeout=30) as response:
             return response.status, response.geturl(), response.read().decode("utf-8", errors="replace")
@@ -25,6 +26,10 @@ def read_url(url: str) -> tuple[int, str, str]:
 
 def read_file(path: str) -> tuple[int, str, str]:
     return 200, str(Path(path).resolve()), Path(path).read_text(encoding="utf-8")
+
+
+def _has(pattern: str, html: str) -> bool:
+    return re.search(pattern, html, re.I | re.S) is not None
 
 
 def validate(status: int, source: str, html: str) -> int:
@@ -38,17 +43,19 @@ def validate(status: int, source: str, html: str) -> int:
         return 1
 
     checks = {
-        "canonical": re.search(r'<link[^>]+rel=["\']canonical["\'][^>]+href=["\']' + re.escape(EXPECTED_TARGET), html, re.I),
-        "meta_refresh": re.search(r'<meta[^>]+http-equiv=["\']refresh["\'][^>]+content=["\'][^"\']*' + re.escape(EXPECTED_TARGET), html, re.I),
-        "javascript": re.search(r'window\.location\.replace\(["\']' + re.escape(EXPECTED_TARGET), html, re.I),
-        "fallback_link": re.search(r'<a[^>]+href=["\']' + re.escape(EXPECTED_TARGET), html, re.I),
+        "brand_canonical": _has(r'<link[^>]+rel=["\']canonical["\'][^>]+href=["\']' + re.escape(BRAND_CANONICAL), html),
+        "meta_refresh_fallback": _has(r'<meta[^>]+http-equiv=["\']refresh["\'][^>]+content=["\'][^"\']*' + re.escape(EXPECTED_TARGET), html),
+        "javascript_redirect": _has(r'window\.location\.replace\([^)]*etsyUrl\.toString\(\)', html),
+        "fallback_link": _has(r'<a[^>]+href=["\']' + re.escape(EXPECTED_TARGET), html),
+        "utm_preservation": "utm_source" in html and "URLSearchParams" in html,
+        "cloudflare_web_analytics_ready": "static.cloudflareinsights.com/beacon.min.js" in html,
     }
     missing = [name for name, matched in checks.items() if not matched]
     if missing:
-        print(f"FAIL: missing redirect mechanisms: {', '.join(missing)}", file=sys.stderr)
+        print(f"FAIL: missing redirect/tracking mechanisms: {', '.join(missing)}", file=sys.stderr)
         return 1
 
-    print(f"PASS: redirects to {EXPECTED_TARGET}")
+    print(f"PASS: tracks source and redirects to {EXPECTED_TARGET}")
     return 0
 
 

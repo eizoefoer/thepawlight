@@ -1,0 +1,33 @@
+{
+  "base_url": "https://thepawlight.com/",
+  "etsy_url": "https://thepawlightofficial.etsy.com/listing/1375236596",
+  "campaign": "pawlight_launch",
+  "best_practice": "Use the brand landing URL for QR/social links so ThePawLight owns attribution, SEO signals, and future destination changes. Use direct Etsy QR only as a backup.",
+  "campaigns": {
+    "qr_print": {
+      "label": "Printed QR code → ThePawLight brand landing page",
+      "url": "https://thepawlight.com/?utm_source=qr&utm_medium=print&utm_campaign=pawlight_launch&utm_content=general",
+      "qr_svg": "assets/qr/thepawlight-qr-print.svg",
+      "qr_png": "assets/qr/thepawlight-qr-print.png"
+    },
+    "reddit_thread": {
+      "label": "Reddit thread/share link → ThePawLight brand landing page",
+      "url": "https://thepawlight.com/?utm_source=reddit&utm_medium=social&utm_campaign=pawlight_launch&utm_content=thread",
+      "qr_svg": "assets/qr/thepawlight-reddit-thread.svg",
+      "qr_png": "assets/qr/thepawlight-reddit-thread.png"
+    },
+    "instagram_bio": {
+      "label": "Instagram bio/story link → ThePawLight brand landing page",
+      "url": "https://thepawlight.com/?utm_source=instagram&utm_medium=social&utm_campaign=pawlight_launch&utm_content=bio",
+      "qr_svg": "assets/qr/thepawlight-instagram-bio.svg",
+      "qr_png": "assets/qr/thepawlight-instagram-bio.png"
+    },
+    "etsy_direct_backup": {
+      "label": "Backup only: direct Etsy QR if a marketplace-only code is required",
+      "url": "https://thepawlightofficial.etsy.com/listing/1375236596?utm_source=qr&utm_medium=print&utm_campaign=pawlight_launch&utm_content=etsy_direct_backup",
+      "qr_svg": "assets/qr/thepawlight-etsy-direct-backup.svg",
+      "qr_png": "assets/qr/thepawlight-etsy-direct-backup.png",
+      "primary": false
+    }
+  }
+}
