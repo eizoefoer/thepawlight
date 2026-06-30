@@ -3,47 +3,117 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>The PawLight — Redirecting to Etsy</title>
-  <meta name="description" content="The PawLight LED pet collar is available on Etsy.">
-  <meta name="robots" content="noindex,follow">
-  <link rel="canonical" href="https://thepawlightofficial.etsy.com/listing/1375236596">
-  <meta http-equiv="refresh" content="0; url=https://thepawlightofficial.etsy.com/listing/1375236596">
+  <title>The PawLight — LED safety collar for dogs</title>
+  <meta name="description" content="The PawLight LED pet safety collar helps dogs stay visible on night walks. Buy The PawLight on Etsy.">
+  <link rel="canonical" href="https://thepawlight.com/">
+  <meta property="og:title" content="The PawLight — LED safety collar for dogs">
+  <meta property="og:description" content="Bright, lightweight LED pet safety collar for safer night walks.">
+  <meta property="og:url" content="https://thepawlight.com/">
+  <meta property="og:type" content="product">
+  <meta name="twitter:card" content="summary">
+  <meta http-equiv="refresh" content="3; url=https://thepawlightofficial.etsy.com/listing/1375236596">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": "The PawLight LED Pet Safety Collar",
+      "brand": {"@type": "Brand", "name": "The PawLight"},
+      "description": "LED pet safety collar for safer night walks.",
+      "url": "https://thepawlight.com/",
+      "offers": {
+        "@type": "Offer",
+        "url": "https://thepawlightofficial.etsy.com/listing/1375236596",
+        "availability": "https://schema.org/InStock"
+      }
+    }
+  </script>
+  <script src="assets/js/analytics-config.js"></script>
   <script>
-    window.location.replace('https://thepawlightofficial.etsy.com/listing/1375236596');
+    (function loadCloudflareWebAnalytics() {
+      var cfg = window.PAWLIGHT_ANALYTICS || {};
+      var token = String(cfg.cloudflareToken || '').trim();
+      if (!token) return;
+      var beacon = document.createElement('script');
+      beacon.defer = true;
+      beacon.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+      beacon.setAttribute('data-cf-beacon', JSON.stringify({ token: token }));
+      document.head.appendChild(beacon);
+    })();
   </script>
   <style>
     :root { color-scheme: light dark; }
+    * { box-sizing: border-box; }
     body {
-      min-height: 100vh;
+      min-height: 100dvh;
       margin: 0;
       display: grid;
       place-items: center;
+      padding: 1rem;
       font: 16px/1.5 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #fff7ed;
+      background: radial-gradient(circle at top, #fed7aa 0, #fff7ed 42%, #ffedd5 100%);
       color: #1f2937;
     }
     main {
-      width: min(36rem, calc(100vw - 2rem));
-      padding: 2rem;
-      border-radius: 1.25rem;
-      background: white;
-      box-shadow: 0 1rem 3rem rgb(15 23 42 / 0.12);
+      width: min(40rem, 100%);
+      padding: clamp(1.5rem, 5vw, 3rem);
+      border-radius: 1.5rem;
+      background: rgb(255 255 255 / 0.94);
+      box-shadow: 0 1rem 3rem rgb(15 23 42 / 0.14);
       text-align: center;
+      border: 1px solid rgb(251 146 60 / 0.35);
     }
-    a { color: #c2410c; font-weight: 700; }
+    h1 { margin: 0.5rem 0; font-size: clamp(2rem, 8vw, 3.5rem); line-height: 1.05; }
+    p { margin: 0.75rem auto; max-width: 34rem; }
+    a.button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1rem;
+      padding: 0.9rem 1.2rem;
+      border-radius: 999px;
+      background: #c2410c;
+      color: white;
+      font-weight: 800;
+      text-decoration: none;
+      box-shadow: 0 0.8rem 1.8rem rgb(194 65 12 / 0.25);
+    }
     .paw { font-size: 3rem; line-height: 1; }
+    .small { color: #6b7280; font-size: 0.92rem; }
     @media (prefers-color-scheme: dark) {
-      body { background: #111827; color: #f9fafb; }
-      main { background: #1f2937; }
-      a { color: #fdba74; }
+      body { background: radial-gradient(circle at top, #7c2d12 0, #111827 50%, #020617 100%); color: #f9fafb; }
+      main { background: rgb(31 41 55 / 0.94); border-color: rgb(251 146 60 / 0.25); }
+      .small { color: #d1d5db; }
+      a.button { background: #fb923c; color: #111827; }
     }
   </style>
 </head>
 <body>
   <main>
     <div class="paw" aria-hidden="true">🐾</div>
-    <h1>Taking you to The PawLight on Etsy…</h1>
-    <p>If you are not redirected automatically, <a href="https://thepawlightofficial.etsy.com/listing/1375236596">continue to the Etsy listing</a>.</p>
+    <h1>The PawLight</h1>
+    <p>Bright LED visibility for safer night walks. Taking you to the official Etsy listing now.</p>
+    <p><a class="button" data-etsy-link href="https://thepawlightofficial.etsy.com/listing/1375236596">Shop The PawLight on Etsy</a></p>
+    <p class="small">Tracking source: <span id="source-label">direct or untagged visit</span>. If the redirect stalls, tap the button.</p>
   </main>
+  <script>
+    (function redirectToEtsy() {
+      var ETSY_TARGET = 'https://thepawlightofficial.etsy.com/listing/1375236596';
+      var params = new URLSearchParams(window.location.search);
+      var etsyUrl = new URL(ETSY_TARGET);
+      ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'].forEach(function (key) {
+        var value = params.get(key);
+        if (value) etsyUrl.searchParams.set(key, value);
+      });
+      var source = params.get('utm_source') || 'direct or untagged visit';
+      var sourceLabel = document.getElementById('source-label');
+      if (sourceLabel) sourceLabel.textContent = source;
+      document.querySelectorAll('[data-etsy-link]').forEach(function (link) {
+        link.href = etsyUrl.toString();
+      });
+      setTimeout(function () {
+        window.location.replace(etsyUrl.toString());
+      }, 1200);
+    })();
+  </script>
 </body>
 </html>

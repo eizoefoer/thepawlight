@@ -5,11 +5,43 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>The PawLight — Redirecting to Etsy</title>
   <meta name="robots" content="noindex,follow">
-  <link rel="canonical" href="https://thepawlightofficial.etsy.com/listing/1375236596">
-  <meta http-equiv="refresh" content="0; url=https://thepawlightofficial.etsy.com/listing/1375236596">
-  <script>window.location.replace('https://thepawlightofficial.etsy.com/listing/1375236596');</script>
+  <link rel="canonical" href="https://thepawlight.com/">
+  <meta http-equiv="refresh" content="3; url=https://thepawlightofficial.etsy.com/listing/1375236596">
+  <script src="assets/js/analytics-config.js"></script>
+  <script>
+    (function loadCloudflareWebAnalytics() {
+      var cfg = window.PAWLIGHT_ANALYTICS || {};
+      var token = String(cfg.cloudflareToken || '').trim();
+      if (!token) return;
+      var beacon = document.createElement('script');
+      beacon.defer = true;
+      beacon.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+      beacon.setAttribute('data-cf-beacon', JSON.stringify({ token: token }));
+      document.head.appendChild(beacon);
+    })();
+  </script>
 </head>
 <body>
-  <p>Redirecting to <a href="https://thepawlightofficial.etsy.com/listing/1375236596">The PawLight on Etsy</a>.</p>
+  <main>
+    <h1>The PawLight</h1>
+    <p>Redirecting to <a data-etsy-link href="https://thepawlightofficial.etsy.com/listing/1375236596">The PawLight on Etsy</a>.</p>
+  </main>
+  <script>
+    (function redirectToEtsy() {
+      var ETSY_TARGET = 'https://thepawlightofficial.etsy.com/listing/1375236596';
+      var params = new URLSearchParams(window.location.search);
+      var etsyUrl = new URL(ETSY_TARGET);
+      ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'].forEach(function (key) {
+        var value = params.get(key);
+        if (value) etsyUrl.searchParams.set(key, value);
+      });
+      document.querySelectorAll('[data-etsy-link]').forEach(function (link) {
+        link.href = etsyUrl.toString();
+      });
+      setTimeout(function () {
+        window.location.replace(etsyUrl.toString());
+      }, 1200);
+    })();
+  </script>
 </body>
 </html>
