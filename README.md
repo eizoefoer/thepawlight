@@ -21,6 +21,10 @@ Analytics adoption path:
 
 Etsy remains the sales/conversion source of truth; site analytics measure top-of-funnel traffic and outbound intent.
 
+UX:
+
+- Dark mode is supported through CSS variables and `assets/js/theme.js`; visitors can toggle light/dark mode and the preference is stored locally.
+
 Commands:
 
 ```bash

@@ -27,6 +27,19 @@
       }
     }
   </script>
+  <script>
+    (function applyInitialTheme() {
+      var theme = 'dark';
+      try {
+        theme = localStorage.getItem('pawlight-theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      } catch (error) {
+        theme = 'dark';
+      }
+      document.documentElement.dataset.theme = theme;
+      document.documentElement.style.colorScheme = theme;
+    })();
+  </script>
+  <script defer src="assets/js/theme.js"></script>
   <script src="assets/js/analytics-config.js"></script>
   <script>
     (function loadCloudflareWebAnalytics() {
@@ -41,7 +54,37 @@
     })();
   </script>
   <style>
-    :root { color-scheme: light dark; }
+    :root {
+      color-scheme: light dark;
+      --page-bg: radial-gradient(circle at top, #fed7aa 0, #fff7ed 42%, #ffedd5 100%);
+      --page-fg: #1f2937;
+      --panel-bg: rgb(255 255 255 / 0.94);
+      --panel-border: rgb(251 146 60 / 0.35);
+      --panel-shadow: 0 1rem 3rem rgb(15 23 42 / 0.14);
+      --muted-fg: #6b7280;
+      --button-bg: #c2410c;
+      --button-fg: #ffffff;
+      --button-shadow: 0 0.8rem 1.8rem rgb(194 65 12 / 0.25);
+      --toggle-bg: rgb(255 255 255 / 0.72);
+      --toggle-border: rgb(194 65 12 / 0.28);
+      --toggle-fg: #7c2d12;
+    }
+    :root[data-theme='dark'] {
+      color-scheme: dark;
+      --page-bg: radial-gradient(circle at top, #7c2d12 0, #111827 50%, #020617 100%);
+      --page-fg: #f9fafb;
+      --panel-bg: rgb(17 24 39 / 0.94);
+      --panel-border: rgb(251 146 60 / 0.28);
+      --panel-shadow: 0 1rem 3rem rgb(0 0 0 / 0.38);
+      --muted-fg: #d1d5db;
+      --button-bg: #fb923c;
+      --button-fg: #111827;
+      --button-shadow: 0 0.8rem 1.8rem rgb(251 146 60 / 0.2);
+      --toggle-bg: rgb(15 23 42 / 0.72);
+      --toggle-border: rgb(251 146 60 / 0.35);
+      --toggle-fg: #fed7aa;
+    }
+    :root[data-theme='light'] { color-scheme: light; }
     * { box-sizing: border-box; }
     body {
       min-height: 100dvh;
@@ -50,17 +93,17 @@
       place-items: center;
       padding: 1rem;
       font: 16px/1.5 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #fed7aa 0, #fff7ed 42%, #ffedd5 100%);
-      color: #1f2937;
+      background: var(--page-bg);
+      color: var(--page-fg);
     }
     main {
       width: min(40rem, 100%);
       padding: clamp(1.5rem, 5vw, 3rem);
       border-radius: 1.5rem;
-      background: rgb(255 255 255 / 0.94);
-      box-shadow: 0 1rem 3rem rgb(15 23 42 / 0.14);
+      background: var(--panel-bg);
+      box-shadow: var(--panel-shadow);
       text-align: center;
-      border: 1px solid rgb(251 146 60 / 0.35);
+      border: 1px solid var(--panel-border);
     }
     h1 { margin: 0.5rem 0; font-size: clamp(2rem, 8vw, 3.5rem); line-height: 1.05; }
     p { margin: 0.75rem auto; max-width: 34rem; }
@@ -71,23 +114,36 @@
       margin-top: 1rem;
       padding: 0.9rem 1.2rem;
       border-radius: 999px;
-      background: #c2410c;
-      color: white;
+      background: var(--button-bg);
+      color: var(--button-fg);
       font-weight: 800;
       text-decoration: none;
-      box-shadow: 0 0.8rem 1.8rem rgb(194 65 12 / 0.25);
+      box-shadow: var(--button-shadow);
+    }
+    .theme-toggle {
+      position: fixed;
+      top: max(0.85rem, env(safe-area-inset-top));
+      right: max(0.85rem, env(safe-area-inset-right));
+      border: 1px solid var(--toggle-border);
+      border-radius: 999px;
+      padding: 0.55rem 0.8rem;
+      background: var(--toggle-bg);
+      color: var(--toggle-fg);
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
     }
     .paw { font-size: 3rem; line-height: 1; }
-    .small { color: #6b7280; font-size: 0.92rem; }
-    @media (prefers-color-scheme: dark) {
-      body { background: radial-gradient(circle at top, #7c2d12 0, #111827 50%, #020617 100%); color: #f9fafb; }
-      main { background: rgb(31 41 55 / 0.94); border-color: rgb(251 146 60 / 0.25); }
-      .small { color: #d1d5db; }
-      a.button { background: #fb923c; color: #111827; }
+    .small { color: var(--muted-fg); font-size: 0.92rem; }
+    @media (max-width: 32rem) {
+      .theme-toggle { position: static; margin-bottom: 0.75rem; }
+      body { align-content: center; }
     }
   </style>
 </head>
 <body>
+  <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false">Dark mode</button>
   <main>
     <div class="paw" aria-hidden="true">🐾</div>
     <h1>The PawLight</h1>
