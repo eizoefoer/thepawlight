@@ -7,6 +7,19 @@
   <meta name="robots" content="noindex,follow">
   <link rel="canonical" href="https://thepawlight.com/">
   <meta http-equiv="refresh" content="3; url=https://thepawlightofficial.etsy.com/listing/1375236596">
+  <script>
+    (function applyInitialTheme() {
+      var theme = 'dark';
+      try {
+        theme = localStorage.getItem('pawlight-theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      } catch (error) {
+        theme = 'dark';
+      }
+      document.documentElement.dataset.theme = theme;
+      document.documentElement.style.colorScheme = theme;
+    })();
+  </script>
+  <script defer src="assets/js/theme.js"></script>
   <script src="assets/js/analytics-config.js"></script>
   <script>
     (function loadCloudflareWebAnalytics() {
@@ -20,6 +33,48 @@
       document.head.appendChild(beacon);
     })();
   </script>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --page-bg: radial-gradient(circle at top, #fed7aa 0, #fff7ed 42%, #ffedd5 100%);
+      --page-fg: #1f2937;
+      --panel-bg: rgb(255 255 255 / 0.94);
+      --panel-border: rgb(251 146 60 / 0.35);
+      --muted-fg: #6b7280;
+      --link-fg: #c2410c;
+    }
+    :root[data-theme='dark'] {
+      color-scheme: dark;
+      --page-bg: radial-gradient(circle at top, #7c2d12 0, #111827 50%, #020617 100%);
+      --page-fg: #f9fafb;
+      --panel-bg: rgb(17 24 39 / 0.94);
+      --panel-border: rgb(251 146 60 / 0.28);
+      --muted-fg: #d1d5db;
+      --link-fg: #fb923c;
+    }
+    :root[data-theme='light'] { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body {
+      min-height: 100dvh;
+      margin: 0;
+      display: grid;
+      place-items: center;
+      padding: 1rem;
+      font: 16px/1.5 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--page-bg);
+      color: var(--page-fg);
+    }
+    main {
+      width: min(36rem, 100%);
+      padding: clamp(1.25rem, 5vw, 2.5rem);
+      border-radius: 1.25rem;
+      background: var(--panel-bg);
+      border: 1px solid var(--panel-border);
+      text-align: center;
+    }
+    a { color: var(--link-fg); font-weight: 800; }
+    .small { color: var(--muted-fg); }
+  </style>
 </head>
 <body>
   <main>

@@ -5,7 +5,7 @@ Last updated: 2026-06-30
 ## Live goal
 
 - `https://thepawlight.com/` and `https://www.thepawlight.com/` serve the branded redirect page from Caddy on the Oracle VM and redirect visitors to Etsy listing `1375236596`.
-- Redirect method: branded static HTML page + Cloudflare Web Analytics beacon loader + UTM-preserving JavaScript redirect + meta refresh fallback + fallback link.
+- Redirect method: branded static HTML page + Cloudflare Web Analytics beacon loader + dark-mode theme support + UTM-preserving JavaScript redirect + meta refresh fallback + fallback link.
 - Cross-site hosting/DNS/Caddy/Playwright source of truth: private repo `eizoefoer/site-infra` at `/home/ubuntu/site-infra`.
 
 ## Analytics and attribution
