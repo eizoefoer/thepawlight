@@ -42,3 +42,33 @@ python3 scripts/verify_redirect.py --url http://thepawlight.com/
 - Cloudflare must stay free/free-tier only. Do not enable paid plans, Workers paid features, paid Pages add-ons, domains, R2 billable storage, Zaraz paid features, or any upgrade without explicit user approval.
 - UI must keep dark-mode support. The landing page uses `assets/js/theme.js` plus CSS variables and a visible theme toggle.
 - Billing guardrail: Hermes cron job `Cloudflare Free Tier Billing Watchdog` (`d27c9e4b6a04`) checks Cloudflare subscriptions, billing history, and PayGo usage every 6 hours and stays silent unless cost/non-free plan appears.
+
+<!-- agent-state-standard:v1 -->
+## Agent state standard
+
+`AGENTS.md` is the single source of truth for agentic work in this repo. Before starting or completing work, every agent must:
+
+1. Read this file and any referenced project docs.
+2. Check `.agents/project-memory.json` and `.agents/task-log.jsonl` for current state.
+3. Update `.agents/task-log.jsonl` with a JSON line for meaningful starts, decisions, blockers, tests, and completions.
+4. Keep `README.md` current when behavior, setup, deployment, or public usage changes.
+5. Keep `CLAUDE.md` and other agent-specific entrypoints as pointers back to `AGENTS.md`; do not duplicate rules there.
+6. Put reusable project-specific skill code/templates under `skills/`.
+7. Prefer IaC/config/scripts over clickops. If clickops are unavoidable, document the exact manual step and the IaC replacement TODO.
+8. Prefer local/free/self-hosted tools first. Use free-tier fallbacks only when they are better for the task or their limits have reset. Paid providers require explicit approval.
+
+Project state files:
+
+- `.agents/project-memory.json` — compact durable project facts and agent handoff pointers.
+- `.agents/task-log.jsonl` — append-only event log for cross-model/machine task resumption.
+- `skills/project-memory/SKILL.md` — project-local skill explaining how to resume and update state.
+
+JSONL event shape:
+
+```json
+{"ts":"2026-07-04T00:00:00Z","actor":"agent-or-human","event":"start|decision|change|test|blocker|complete","summary":"short factual note","files":["path"],"next":["optional next action"]}
+```
+
+## Obsidian synthesis and retrieval
+
+Use `/home/ubuntu/vault/projects/managed/thepawlight-0063b75f.md` for concise cross-project storage and retrieval. Read it before meaningful work, then use this repository's `.agents/` files as authoritative task state. Update repository state first; update the vault only when it improves durable cross-project retrieval. Shared policy: `/home/ubuntu/vault/system/project-obsidian-memory.md`.
